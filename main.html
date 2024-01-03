@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:1800px;
+            height:900px;
+            background-color: yellow;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        };
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./GameObject.js"></script>
+    <script src="./Hero.js"></script>
+    <script src="./InfoBox.js"></script>
+    <script src="./Bullet.js"></script>
+    <script src="./Enemy.js"></script>
+    <script src="./Gage.js"></script>
+    <script src="../lib/common.js"></script>
+    <script>
+        let wrapper;
+        let hero;
+        let infoBox; 
+        let bulletArray=[];
+        let enemyArray=[];
+        let d=0;
+        let gage;
+        this.g=0.02;
+
+        function createInfoBox(){
+            infoBox = new InfoBox(wrapper, "", 1400, 400, 200, 100,0,0);
+        }
+
+        
+        function createHero(){
+            //constructor(container, src, x, y, width, height, velX, velY)
+            hero= new Hero(wrapper, "", 1400, 600, 30,25,0,0);
+        }
+
+        function createEnemy(){
+            //constructor(container, src, x, y, width, height, velX, velY)
+            let enemy= new Enemy(wrapper, "", getRandomByRange(0,700),getRandomByRange(0,900), 40,40,0,0);
+            console.log("aa");
+            enemyArray.push(enemy);
+
+            setTimeout(()=>{
+                createEnemy();
+            }, 3000);
+        }
+        
+        function createGage(){
+            gage = new Gage(wrapper, "", 1400, 700, 150,25,2);
+        };
+
+        function fire(){
+            gage.flag=false;
+     
+            let bullet = new Bullet(wrapper, "", hero.x, hero.y, 20,20, 30, 30, 40);
+            bullet.velX = -Math.cos(hero.r * Math.PI/180);
+            bullet.velY = -Math.sin(hero.r * Math.PI/180);
+
+            bulletArray.push(bullet);
+        }
+
+        function gameLoop(){
+            for(let i=0;i<bulletArray.length;i++){
+                bulletArray[i].move();
+            }
+
+            for(let i=0;i<enemyArray.length;i++){
+                enemyArray[i].move();
+            }
+
+            hero.setDegree(d);
+
+            gage.move();
+
+        }
+
+        function init(){
+            wrapper = document.getElementById("wrapper");
+            createInfoBox();
+            createHero();
+            createEnemy();
+            createGage();
+
+            document.body.addEventListener("keydown", function(e){
+                switch(e.keyCode){
+                    case 38 : d=1; break; //각도 올리기
+                    case 40 : d=-1;break; //각도 내리기
+                    case 32 : fire(); break;
+                }                
+            });
+
+            document.body.addEventListener("keyup", function(e){
+                switch(e.keyCode){
+                    case 38 : d=0; break;
+                    case 40 : d=0;break;
+                }                
+            });
+
+            setInterval("gameLoop()", 20);
+        }
+
+        $(function(){
+            init();
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
