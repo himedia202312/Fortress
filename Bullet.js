@@ -13,7 +13,7 @@ class Bullet extends GameObject{
     }
 
     move(){
-        this.velY += g+( 1.2/gage.value); //중력 적용
+        this.velY += g+( 0.6 /gage.value); //중력 적용  숫자가 낮을 수록 힘이 강함
         console.log(this.velY);
 
         this.x += (this.velX * this.power);
