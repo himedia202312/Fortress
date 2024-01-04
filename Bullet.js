@@ -7,13 +7,13 @@ class Bullet extends GameObject{
         this.div.style.background="red";
         this.div.style.borderRadius=50+"%";
 
-
-        
         this.power=power;
     }
 
     move(){
-        this.velY += g+( 0.05 /gage.value); //중력 적용  숫자가 낮을 수록 힘이 강함
+        
+        this.velY += g+(0.04 /gage.value); //중력 적용  숫자가 낮을 수록 힘이 강함
+
         console.log(this.velY);
 
         this.x += (this.velX * this.power);

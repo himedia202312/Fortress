@@ -30,7 +30,7 @@
         let enemyArray=[];
         let d=0;
         let gage;
-        this.g=0.02;
+        this.g=0.02; //0.02 적당
 
         function createInfoBox(){
             infoBox = new InfoBox(wrapper, "", 1400, 400, 200, 100,0,0);
@@ -39,7 +39,7 @@
         
         function createHero(){
             //constructor(container, src, x, y, width, height, velX, velY)
-            hero= new Hero(wrapper, "", 1400, 600, 30,25,0,0);
+            hero= new Hero(wrapper, "../images/cannon.png", 1400, 600, 50,50,0,0);
         }
 
         function createEnemy(){
@@ -58,13 +58,16 @@
         };
 
         function fire(){
-            gage.flag=false;
-     
-            let bullet = new Bullet(wrapper, "", hero.x, hero.y, 20,20, 30, 30, 40);
-            bullet.velX = -Math.cos(hero.r * Math.PI/180);
-            bullet.velY = -Math.sin(hero.r * Math.PI/180);
+            if(gage.flag){ //한번의 시도에 총알 1개씩만 나갈수 있게 처리 
+                gage.flag=false;
+                
+                let bullet = new Bullet(wrapper, "", hero.x, hero.y, 20,20, 30, 30, 40);
+                bullet.velX = -Math.cos(hero.r * Math.PI/180);
+                bullet.velY = -Math.sin(hero.r * Math.PI/180);
+                bullet.power=(gage.value*(50/100)); //파워 게이지의 50%만 힘을 낸다
 
-            bulletArray.push(bullet);
+                bulletArray.push(bullet);
+            }
         }
 
         function gameLoop(){

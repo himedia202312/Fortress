@@ -30,6 +30,7 @@ class Gage extends GameObject{
                 this.direct=!this.direct;
             }
     
+            
             this.gage.style.width = this.value+"%";
         }
     }

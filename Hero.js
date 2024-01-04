@@ -11,14 +11,17 @@ class Hero extends GameObject{
 
     createGun(){
         this.gun = document.createElement("div");
+        this.gun.style.background="green";
+        
         
         this.gun.style.position="absolute";
-        this.gun.style.top= this.height*(5/100)+"px";
+        //this.gun.style.top= this.height*(5/100)+"px";        
+        this.gun.style.left=-(this.width*(50/100))+"px";
+        this.gun.style.top= (this.height*(45/100))+"px";        
         
         this.gun.style.width=130+"px";
         this.gun.style.height=10+"px";
         
-        this.gun.style.background="green";
         this.gun.style.borderRadius=30+"%";
         
         this.gun.style.transform="rotate(180deg)";
@@ -29,7 +32,7 @@ class Hero extends GameObject{
     setDegree(n){
         //좌측인 경우 시각적 효과 때문에 - 곱함 
         this.r += n;
-        infoBox.div.innerText=this.r;
+        infoBox.div.innerText=this.r+"˚";
 
         this.gun.style.transform="rotate("+(this.r)+"deg)";
               

@@ -5,8 +5,7 @@ class InfoBox extends GameObject{
 
         this.div.style.fontSize=100+"px";
         this.div.style.color="red";
-        this.div.style.fontWeight="bold";
-        this.div.style.color="red";
+        this.div.style.fontWeight="bold";        
     }    
 
     printMsg(msg){
